@@ -8,3 +8,5 @@ for (let index = 0; index < users.length; index++) {
   showUsers();
   moreInfo();
 }
+
+userList.addEventListener("click", userListOnClick);

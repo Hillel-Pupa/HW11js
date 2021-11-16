@@ -12,7 +12,6 @@
     <head></head>
     <main>
       <div class="user-list"></div>
-      <div class="user-info"></div>
     </main>
     <template id="user-content">
       <div class="user">
@@ -21,14 +20,13 @@
         <button class="delete">delete</button>
         <button class="view">view</button>
         <button class="edit">edit</button>
+        <div hidden class="user-view">
+          <span class="age"></span>
+          <span class="gender"></span>
+        </div>
       </div>
     </template>
-    <template id="more-info">
-      <div hidden class="user-view">
-        <span class="age"></span>
-        <span class="gender"></span>
-      </div>
-    </template>
+    <template id="more-info"> </template>
     <footer></footer>
   </body>
 </html>
