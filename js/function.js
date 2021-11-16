@@ -37,7 +37,7 @@ export function showUsers() {
     age.textContent = `age: ${users[index].age}`;
     gender.textContent = `gender: ${users[index].gender}`;
   }
-  // localStorage.setItem("users", JSON.stringify)
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
 export function userListOnClick(event) {
@@ -48,6 +48,7 @@ export function userListOnClick(event) {
     if (result) {
       const user = event.target.parentElement;
       user.remove();
+      // localStorage.removeItem(user);
     }
   }
   if (event.target.classList.contains("view")) {
