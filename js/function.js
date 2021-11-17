@@ -9,7 +9,8 @@ export function moreInfo() {
   for (let index = 0; index < users.length; index++) {}
 }
 
-export function User(name, surname, age, gender) {
+export function User(id, name, surname, age, gender) {
+  this.id = id
   this.name = name;
   this.surname = surname;
   this.age = age;
