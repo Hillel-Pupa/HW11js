@@ -12,6 +12,8 @@
     <head></head>
     <main>
       <div class="user-list"></div>
+      <button class="new-user">Add User</button>
+      <div hidden class="add-user"></div>
     </main>
     <template id="user-content">
       <div class="user">
@@ -22,11 +24,48 @@
         <button class="edit">edit</button>
         <div hidden class="user-view">
           <span class="age"></span>
-          <span class="gender"></span>
+          <span class="email"></span>
+          <span class="phone-number"></span>
+          <span class="card-number"></span>
+          <span class="password"></span>
         </div>
       </div>
     </template>
-    <template id="more-info"> </template>
+    <template id="add-user">
+      <form action="" class="main-form" name="main-form">
+        <p>
+          <input required type="text" name="firstname" placeholder="Name" />
+        </p>
+        <p>
+          <input
+            required
+            type="password"
+            name="user-password"
+            placeholder="Password"
+          />
+        </p>
+        <p><input required type="text" name="age" placeholder="Age" /></p>
+        <p><input required type="email" name="email" placeholder="Email" /></p>
+        <p>
+          <input
+            required
+            type="text"
+            name="phone-number"
+            placeholder="Phone number"
+          />
+        </p>
+        <p>
+          <input
+            required
+            type="text"
+            name="card-number"
+            placeholder="Card number"
+          />
+        </p>
+        <button class="post">Post User</button>
+        <button class="edit">Edit User</button>
+      </form>
+    </template>
     <footer></footer>
   </body>
 </html>

@@ -1,4 +1,10 @@
-import { userListOnClick, showUsers } from "./function.js";
+import {
+  userListOnClick,
+  showUsers,
+  addNewUser,
+  addUsers,
+  newUserBtn,
+} from "./function.js";
 import { getUsers } from "./users.js";
 import { userList } from "./function.js";
 
@@ -10,3 +16,5 @@ for (let index = 0; index < users.length; index++) {
 }
 
 userList.addEventListener("click", userListOnClick);
+
+newUserBtn.addEventListener("click", addNewUser);
