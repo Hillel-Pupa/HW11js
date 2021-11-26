@@ -106,4 +106,6 @@ export function addNewUser() {
   users.push(user);
   console.log(users);
 }
+function safeUsers() {
+}
 // console.log(users[0].name);
