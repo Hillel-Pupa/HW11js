@@ -12,10 +12,10 @@ const addUserTemplate = document.querySelector("#add-user");
 export const addUsers = document.querySelector(".add-user");
 export const newUserBtn = document.querySelector(".new-user");
 
-export function User(name, surname, age, email, number, cardNumber, password) {
+export function User(name, lastname, age, email, number, cardNumber, password) {
   this.id = (Math.random() * 1e17).toString(16);
   this.name = name;
-  this.surname = surname;
+  this.lastname = lastname;
   this.age = age;
   this.email = email;
   this.number = number;
@@ -32,9 +32,9 @@ export function showUsers() {
     const userObj = users[index];
     userEl.id = userObj.id;
     const userName = document.querySelector(".name");
-    const userSurname = document.querySelector(".surname");
+    const userLastname = document.querySelector(".lastname");
     userName.textContent = userObj.name;
-    userSurname.textContent = userObj.surname;
+    userLastname.textContent = userObj.surname;
     const userView = document.querySelector(".user-view");
     const age = document.querySelector(".age");
     const email = document.querySelector(".email");
@@ -42,7 +42,7 @@ export function showUsers() {
     const cardNumber = document.querySelector(".card-number");
     const password = document.querySelector(".password");
     userEl.appendChild(userName);
-    userEl.appendChild(userSurname);
+    userEl.appendChild(userLastname);
     userList.appendChild(userEl);
     userView.appendChild(age);
     userView.appendChild(email);
@@ -82,11 +82,28 @@ export function userListOnClick(event) {
 
 const newAddUserTemplate = addUserTemplate.content.cloneNode(true);
 addUsers.appendChild(newAddUserTemplate);
-export function addNewUser(event) {
-  if (event.target.classList.contains("new-user")) {
-    addUsers.hidden = false;
-  }
-  const users = getUsers();
+export function showForm() {
+  addUsers.hidden = false;
 }
+export const addUserBtn = document.querySelector(".post");
 
+export function addNewUser() {
+  const mainForm = document.querySelector(".main-form");
+  let formData = new FormData(mainForm);
+  let formDataObj = Object.fromEntries(formData);
+  console.log(formDataObj);
+  let user = new User(
+    formDataObj.firstname,
+    formDataObj.lastname,
+    formDataObj.age,
+    formDataObj.email,
+    formDataObj.phonenumber,
+    formDataObj.cardnumber,
+    formDataObj.userpassword
+  );
+  console.log(user);
+  const users = getUsers();
+  users.push(user);
+  console.log(users);
+}
 // console.log(users[0].name);
