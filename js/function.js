@@ -39,12 +39,14 @@ export function addNewUser() {
   );
 
   console.log(user);
-  function saveUsers(user) {
-    const users = JSON.parse(localStorage.getItem("users"));
-    users.push(user);
-    localStorage.setItem("users", JSON.stringify(users));
-  }
+
   saveUsers(user);
+}
+
+function saveUsers(user) {
+  const users = getUsers();
+  users.push(user);
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
 export function showUsers() {
@@ -112,5 +114,9 @@ export function showForm() {
 }
 export const addUserBtn = document.querySelector(".post");
 
-function editUser()
+function editUser(event) {
+  const users = getUsers();
+  const user = event.target.classList.contains("edit");
+  const userElem = event.target.parentElement;
+}
 // console.log(users[0].name);
