@@ -106,9 +106,11 @@ export function userListOnClick(event) {
 
 const newAddUserTemplate = addUserTemplate.content.cloneNode(true);
 addUsers.appendChild(newAddUserTemplate);
+
 export function showForm() {
   addUsers.hidden = false;
 }
 export const addUserBtn = document.querySelector(".post");
 
+function editUser()
 // console.log(users[0].name);

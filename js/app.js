@@ -9,7 +9,6 @@ import {
 } from "./function.js";
 import { getUsers } from "./users.js";
 import { userList } from "./function.js";
-
 import { userTemplate } from "./function.js";
 
 newUserBtn.addEventListener("click", showForm);
