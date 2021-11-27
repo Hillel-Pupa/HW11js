@@ -12,13 +12,13 @@ import { userList } from "./function.js";
 
 import { userTemplate } from "./function.js";
 
+newUserBtn.addEventListener("click", showForm);
+
+addUserBtn.addEventListener("click", addNewUser);
+
 const users = getUsers();
 for (let index = 0; index < users.length; index++) {
   showUsers();
 }
 
 userList.addEventListener("click", userListOnClick);
-
-newUserBtn.addEventListener("click", showForm);
-
-addUserBtn.addEventListener("click", addNewUser);

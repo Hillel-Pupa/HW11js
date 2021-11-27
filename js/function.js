@@ -23,6 +23,30 @@ export function User(name, lastname, age, email, number, cardNumber, password) {
   this.password = password;
 }
 
+export function addNewUser() {
+  const mainForm = document.querySelector(".main-form");
+  let formData = new FormData(mainForm);
+  let formDataObj = Object.fromEntries(formData);
+  console.log(formDataObj);
+  let user = new User(
+    formDataObj.firstname,
+    formDataObj.lastname,
+    formDataObj.age,
+    formDataObj.email,
+    formDataObj.phonenumber,
+    formDataObj.cardnumber,
+    formDataObj.userpassword
+  );
+
+  console.log(user);
+  function saveUsers(user) {
+    const users = JSON.parse(localStorage.getItem("users"));
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+  saveUsers(user);
+}
+
 export function showUsers() {
   const newTemplate = userTemplate.content.cloneNode(true);
   userList.appendChild(newTemplate);
@@ -34,7 +58,7 @@ export function showUsers() {
     const userName = document.querySelector(".name");
     const userLastname = document.querySelector(".lastname");
     userName.textContent = userObj.name;
-    userLastname.textContent = userObj.surname;
+    userLastname.textContent = userObj.lastname;
     const userView = document.querySelector(".user-view");
     const age = document.querySelector(".age");
     const email = document.querySelector(".email");
@@ -87,25 +111,4 @@ export function showForm() {
 }
 export const addUserBtn = document.querySelector(".post");
 
-export function addNewUser() {
-  const mainForm = document.querySelector(".main-form");
-  let formData = new FormData(mainForm);
-  let formDataObj = Object.fromEntries(formData);
-  console.log(formDataObj);
-  let user = new User(
-    formDataObj.firstname,
-    formDataObj.lastname,
-    formDataObj.age,
-    formDataObj.email,
-    formDataObj.phonenumber,
-    formDataObj.cardnumber,
-    formDataObj.userpassword
-  );
-  console.log(user);
-  const users = getUsers();
-  users.push(user);
-  console.log(users);
-}
-function safeUsers() {
-}
 // console.log(users[0].name);
