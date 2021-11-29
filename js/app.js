@@ -6,6 +6,8 @@ import {
   newUserBtn,
   addUserBtn,
   addNewUser,
+  editUserBtn,
+  editUser,
 } from "./function.js";
 import { getUsers } from "./users.js";
 import { userList } from "./function.js";
@@ -15,9 +17,10 @@ newUserBtn.addEventListener("click", showForm);
 
 addUserBtn.addEventListener("click", addNewUser);
 
+editUserBtn.addEventListener("click", editUser);
+
 const users = getUsers();
-for (let index = 0; index < users.length; index++) {
-  showUsers();
-}
+
+showUsers();
 
 userList.addEventListener("click", userListOnClick);

@@ -12,14 +12,22 @@ const addUserTemplate = document.querySelector("#add-user");
 export const addUsers = document.querySelector(".add-user");
 export const newUserBtn = document.querySelector(".new-user");
 
-export function User(name, lastname, age, email, number, cardNumber, password) {
+export function User(
+  firstname,
+  lastname,
+  age,
+  email,
+  phonenumber,
+  cardnumber,
+  password
+) {
   this.id = (Math.random() * 1e17).toString(16);
-  this.name = name;
+  this.firstname = firstname;
   this.lastname = lastname;
   this.age = age;
   this.email = email;
-  this.number = number;
-  this.cardNumber = cardNumber;
+  this.phonenumber = phonenumber;
+  this.cardnumber = cardnumber;
   this.password = password;
 }
 
@@ -39,34 +47,34 @@ export function addNewUser() {
   );
 
   console.log(user);
-
-  saveUsers(user);
-}
-
-function saveUsers(user) {
   const users = getUsers();
   users.push(user);
+  saveUsers(users);
+}
+
+function saveUsers(users) {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
 export function showUsers() {
-  const newTemplate = userTemplate.content.cloneNode(true);
-  userList.appendChild(newTemplate);
   const users = getUsers();
+  userList.replaceChildren([]);
   for (let index = 0; index < users.length; index++) {
-    const userEl = document.querySelector(".user");
+    const userContentEl = userTemplate.content.cloneNode(true);
+
+    const userEl = userContentEl.querySelector(".user");
     const userObj = users[index];
     userEl.id = userObj.id;
-    const userName = document.querySelector(".name");
-    const userLastname = document.querySelector(".lastname");
-    userName.textContent = userObj.name;
+    const userName = userContentEl.querySelector(".name");
+    const userLastname = userContentEl.querySelector(".lastname");
+    userName.textContent = userObj.firstname;
     userLastname.textContent = userObj.lastname;
-    const userView = document.querySelector(".user-view");
-    const age = document.querySelector(".age");
-    const email = document.querySelector(".email");
-    const phoneNumber = document.querySelector(".phone-number");
-    const cardNumber = document.querySelector(".card-number");
-    const password = document.querySelector(".password");
+    const userView = userContentEl.querySelector(".user-view");
+    const age = userContentEl.querySelector(".age");
+    const email = userContentEl.querySelector(".email");
+    const phoneNumber = userContentEl.querySelector(".phone-number");
+    const cardNumber = userContentEl.querySelector(".card-number");
+    const password = userContentEl.querySelector(".password");
     userEl.appendChild(userName);
     userEl.appendChild(userLastname);
     userList.appendChild(userEl);
@@ -79,10 +87,25 @@ export function showUsers() {
     age.textContent = `age: ${userObj.age}`;
     email.textContent = `email: ${userObj.email}`;
     phoneNumber.textContent = `Phone Number: ${userObj.number}`;
-    cardNumber.textContent = `Card Number: ${userObj.cardNumber}`;
+    cardNumber.textContent = `Card Number: ${userObj.cardnumber}`;
     password.textContent = `Password: ${userObj.password}`;
+    userList.appendChild(userContentEl);
   }
+
   localStorage.setItem("users", JSON.stringify(users));
+}
+
+const newAddUserTemplate = addUserTemplate.content.cloneNode(true);
+addUsers.appendChild(newAddUserTemplate);
+
+function fillUserForm(user, form) {
+  for (const key in user) {
+    if (form.elements[key]) {
+      form.elements[key].value = user[key];
+    } else {
+      console.warn("element not found", key);
+    }
+  }
 }
 
 export function userListOnClick(event) {
@@ -103,20 +126,34 @@ export function userListOnClick(event) {
   }
   if (event.target.classList.contains("edit")) {
     addUsers.hidden = false;
+    const users = getUsers();
+    const userElem = event.target.parentElement;
+    const currentUser = users.find((user) => user.id === userElem.id);
+    const mainForm = document.querySelector(".main-form");
+    mainForm.firstname.value = currentUser.firstname;
+    fillUserForm(currentUser, mainForm);
   }
 }
-
-const newAddUserTemplate = addUserTemplate.content.cloneNode(true);
-addUsers.appendChild(newAddUserTemplate);
 
 export function showForm() {
   addUsers.hidden = false;
 }
 export const addUserBtn = document.querySelector(".post");
+export const editUserBtn = document.querySelector(".editUser");
 
-function editUser(event) {
+export function editUser(event) {
+  event.preventDefault();
   const users = getUsers();
-  const user = event.target.classList.contains("edit");
-  const userElem = event.target.parentElement;
+  const mainForm = document.querySelector(".main-form");
+  const currentUser = users.find(
+    (user) => user.id === mainForm.elements.id.value
+  );
+  let formData = new FormData(mainForm);
+  let formDataObj = Object.fromEntries(formData);
+  Object.assign(currentUser, formDataObj);
+  saveUsers(users);
+  addUsers.hidden = true;
+  showUsers();
 }
+
 // console.log(users[0].name);

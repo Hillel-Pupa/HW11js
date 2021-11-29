@@ -23,16 +23,17 @@
         <button class="view">view</button>
         <button class="edit">edit</button>
         <div hidden class="user-view">
-          <span class="age"></span>
-          <span class="email"></span>
-          <span class="phone-number"></span>
-          <span class="card-number"></span>
-          <span class="password"></span>
+          <div class="age"></div>
+          <div class="email"></div>
+          <div class="phone-number"></div>
+          <div class="card-number"></div>
+          <div class="password"></div>
         </div>
       </div>
     </template>
     <template id="add-user">
       <form action="" class="main-form" name="main-form">
+        <p><input type="hidden" name="id" placeholder="id" /></p>
         <p>
           <input required type="text" name="firstname" placeholder="Name" />
         </p>
@@ -43,7 +44,7 @@
           <input
             required
             type="password"
-            name="userpassword"
+            name="password"
             placeholder="Password"
           />
         </p>
@@ -66,7 +67,7 @@
           />
         </p>
         <button class="post">Post User</button>
-        <button class="edit">Edit User</button>
+        <button class="editUser">Edit User</button>
       </form>
     </template>
     <footer></footer>
