@@ -3,7 +3,7 @@ import { getUsers } from "./users.js";
 export const userList = document.querySelector(".user-list");
 export const userInfo = document.querySelector(".user-info");
 export const userTemplate = document.querySelector("#user-content");
-const namePattern = /^[A-Z][a-z]+$/;
+const namePattern = /^[A-Z][a-z]+$|^[А-Я][а-я]+$/;
 const agePattern = /^\d\d$/;
 const emailPattern = /^[a-zA-Z0-9].+@[a-z]{3,}.[a-z]{2,}$/;
 const numberPattern = /^.[0-9]+$/;
@@ -31,12 +31,23 @@ export function User(
   this.password = password;
 }
 
-export function addNewUser() {
+export function addNewUser(event) {
+  event.preventDefault();
   const mainForm = document.querySelector(".main-form");
+
   let formData = new FormData(mainForm);
   let formDataObj = Object.fromEntries(formData);
   console.log(formDataObj);
 
+  let user = new User(
+    formDataObj.firstname,
+    formDataObj.lastname,
+    formDataObj.age,
+    formDataObj.email,
+    formDataObj.phonenumber,
+    formDataObj.cardnumber,
+    formDataObj.userpassword
+  );
   if (!namePattern.test(formDataObj.firstname)) {
     console.error("Enter firstname");
     return;
@@ -57,24 +68,18 @@ export function addNewUser() {
     console.error("Enter phone number");
     return;
   }
-  if (!cardNumberPattern.test(formDataObj.cardNumber)) {
+  if (!cardNumberPattern.test(formDataObj.cardnumber)) {
     console.error("Enter card number");
     return;
   }
-  let user = new User(
-    formDataObj.firstname,
-    formDataObj.lastname,
-    formDataObj.age,
-    formDataObj.email,
-    formDataObj.phonenumber,
-    formDataObj.cardnumber,
-    formDataObj.userpassword
-  );
 
   console.log(user);
   const users = getUsers();
   users.push(user);
   saveUsers(users);
+  addUsers.hidden = true;
+  showUsers();
+  mainForm.reset();
 }
 
 function saveUsers(users) {
