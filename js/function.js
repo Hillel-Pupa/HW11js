@@ -36,6 +36,31 @@ export function addNewUser() {
   let formData = new FormData(mainForm);
   let formDataObj = Object.fromEntries(formData);
   console.log(formDataObj);
+
+  if (!namePattern.test(formDataObj.firstname)) {
+    console.error("Enter firstname");
+    return;
+  }
+  if (!namePattern.test(formDataObj.lastname)) {
+    console.error("Enter lastname");
+    return;
+  }
+  if (!agePattern.test(formDataObj.age)) {
+    console.error("Enter age");
+    return;
+  }
+  if (!emailPattern.test(formDataObj.email)) {
+    console.error("Enter email");
+    return;
+  }
+  if (!numberPattern.test(formDataObj.phonenumber)) {
+    console.error("Enter phone number");
+    return;
+  }
+  if (!cardNumberPattern.test(formDataObj.cardNumber)) {
+    console.error("Enter card number");
+    return;
+  }
   let user = new User(
     formDataObj.firstname,
     formDataObj.lastname,
@@ -61,7 +86,6 @@ export function showUsers() {
   userList.replaceChildren([]);
   for (let index = 0; index < users.length; index++) {
     const userContentEl = userTemplate.content.cloneNode(true);
-
     const userEl = userContentEl.querySelector(".user");
     const userObj = users[index];
     userEl.id = userObj.id;
